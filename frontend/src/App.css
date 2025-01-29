@@ -1,0 +1,235 @@
+*{
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+  margin:0;
+}
+
+.home{
+  background: linear-gradient(rgb(0, 0, 0,0.1),rgb(0, 0, 0,0.1)),url("./assets/bg.png") no-repeat center/cover;
+  width:100%;
+  height:100vh;
+  display: flex;
+  flex-direction:column;
+  justify-content: flex-start;
+}
+
+.nav{
+  padding:20px ;
+  border:0;
+}
+
+.nav button{
+  background-color: rgb(172, 25, 25);
+  border:0;
+  color:white;
+  border-radius: 10px;
+  padding:10px;
+  float: right;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.nav button:hover{
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgb(252, 89, 89);
+}
+
+.hero{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height:70vh;
+}
+
+.hero h1{
+  font-size: 50px;
+}
+
+.hero button{
+  background-color: rgb(195, 190, 47);
+  color:white;
+  border:0px;
+  padding:10px;
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+.hero button:hover{
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgb(195, 190, 47);
+}
+
+.login-sec{
+  background: linear-gradient(rgb(0, 0, 0,0),rgb(0, 0, 0,0)),url("./assets/loginbg.png") no-repeat center/cover;
+  width:100%;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+}
+
+.logcontainer{
+  width:80%;
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 20px grey;
+  padding:30px ;
+}
+
+.logcontainer img{
+  width:50%;
+  height:80vh;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:30px 10px;
+  background-color: rgb(231, 231, 231);
+  width:35%;  
+  height:fit-content;
+  gap:20px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 30px rgb(228, 228, 228);
+}
+
+.login-form form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:40px;
+  width:80%;
+}
+
+.login-form input{
+  background: transparent;
+  border:none;
+  border-bottom: 2px solid rgb(5, 167, 105);
+  outline:none;
+  font-size: medium;
+}
+
+.login-form input[type="submit"]{
+  border:0px;
+  background-color: #e1c451;
+  color: white;
+  padding:10px;
+}
+
+.login-form button{
+  background-color: rgb(102, 216, 171);
+  border:0px;
+  border-radius: 5px;
+  padding:5px;
+}
+
+.login-form input[type="submit"]:hover, .login-form button:hover{
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgb(171, 171, 171);
+}
+
+.login-form a{
+  text-decoration: none;
+  color:rgb(44, 149, 107);
+}
+.password{
+  display: flex;
+  gap:10px;
+}
+
+.password input{
+  width:100%;
+}
+
+.createPage{
+  display: flex;
+
+}
+
+.sideBar{
+  background-color: #e9e7e7;
+  width:10%;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  left:0;
+  padding:20px;
+
+}
+
+.sideBar button{
+  background-color:transparent;
+  color:black;
+  font-size: medium;
+  font-weight: 300;
+  border: 0px;
+}
+
+.sideBar button:hover{
+  cursor: pointer;
+}
+
+.DocumenSection{
+  background-color: rgb(255, 255, 255);
+  width:85%;
+  margin-left: 12%;
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  padding:20px;
+}
+
+.createButton{
+  padding:0px 50px;
+}
+.createButton button{
+  width:10%;
+  height:25vh;
+  background-color:white;
+  color:black;
+  font-size: larger;
+  font-weight: 800;
+  border:1px solid rgb(101, 101, 101);
+}
+
+
+
+.createButton button:hover{
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgb(162, 162, 162);
+}
+
+.savedDocuments{
+  background-color: antiquewhite;
+}
+
+.editor-container{
+  width:90%
+}
+
+.container {
+  width: 60%;
+  background: #FFF;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  margin: 10px auto 10px auto !important;
+  min-height: 100vh;
+}
+
+.ql-toolbar.ql-snow {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #F3F3F3;
+  border: none !important;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
