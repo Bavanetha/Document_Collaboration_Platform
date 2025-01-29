@@ -61,7 +61,7 @@ const CreateDocument = () => {
   
 
     useEffect(() => {
-        const socketServer = io('http://localhost:5000');
+        const socketServer = io('https://document-collaboration-platform.onrender.com');
         setSocket(socketServer);
 
         return () => {
@@ -122,7 +122,7 @@ const CreateDocument = () => {
             clearInterval(interval);
         }
     }, [socket, quill]);
-
+    
 
     
     return (
@@ -130,6 +130,7 @@ const CreateDocument = () => {
         <Component>
             <Box className='container' id='container'></Box>
         </Component>
+
          </>
     )
 }

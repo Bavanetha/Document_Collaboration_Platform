@@ -5,7 +5,7 @@ import axios from 'axios';
 import loginImg from "../assets/login-screen-landing-page.png"
 import { AuthContext } from "./AuthContext";
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const navigate = useNavigate();
   const { dispatch } = useContext(AuthContext);
 
@@ -22,7 +22,7 @@ const Login = ({ onLogin }) => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const req = await axios.post("http://localhost:5000/login", {
+      const req = await axios.post("https://document-collaboration-platform.onrender.com/login", {
         email: email,
         password: password
       })
@@ -31,8 +31,8 @@ const Login = ({ onLogin }) => {
         payload: req.data.token,
       });
       localStorage.setItem("token", req.data.token);
+      localStorage.setItem("email", req.data.email);
       var isLoginSuccessful = req.data.loginStatus;
-      console.log(isLoginSuccessful)
       if (isLoginSuccessful) {
         alert(req.data.response);
         navigate("/");

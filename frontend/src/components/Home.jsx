@@ -10,7 +10,7 @@ const Home = () => {
   const [userName, setUsername] = useState("");
   axios.defaults.headers.common["Authorization"] = user
   const getUserProfile = async () => {
-    await axios.get("http://localhost:5000/json").then((res) => {
+    await axios.get("https://document-collaboration-platform.onrender.com/json").then((res) => {
       setUsername(res.data.user)
     });
   };

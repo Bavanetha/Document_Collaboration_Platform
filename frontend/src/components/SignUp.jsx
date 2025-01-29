@@ -22,7 +22,7 @@ const SignUp = () => {
     const handleSignUp =async (event) =>{
       event.preventDefault();
         try{
-          const req = await axios.post("http://localhost:5000/signup",{
+          const req = await axios.post("https://document-collaboration-platform.onrender.com/signup",{
             userName:userName,
             email:email,
             password:password

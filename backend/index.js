@@ -80,7 +80,7 @@ app.post("/signup", async (req, res) => {
       });
       console.log(token);
       if (bcrypt.compare(user.password, password)) {
-        res.status(200).send({ response: "Login successful", loginStatus: true,token: token });
+        res.status(200).send({ response: "Login successful", loginStatus: true,token: token,email:email });
       } else {
         res.status(401).send({ response: "Incorrect password", loginStatus: false });
       }
