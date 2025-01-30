@@ -67,10 +67,12 @@ const DocumentsPage = () => {
                 <div className="createButton">
                     <button onClick={handleCreateDocument}>+</button>
                 </div>
+                <h1>Saved Documents</h1>
                 <div className="savedDocuments">
+                    
                     {documents.length > 0 ? (
                         documents.map(doc => (
-                            <div>
+                            <div className='docs'>
                                 <div key={doc._id} className="documentItem" onClick={() => handleOpenDocument(doc._id)}>
                                     {doc.filename} </div>
                                 <button onClick={() => handleDelete(doc._id)}>DELETE</button>

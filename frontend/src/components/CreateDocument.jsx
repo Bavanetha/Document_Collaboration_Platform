@@ -126,8 +126,10 @@ const CreateDocument = () => {
 
     return (
         <>
-            <div>
-                <input type="text" value={filename} onChange={(e) => { setFilename(e.target.value) }} />
+            <div className='docs-header'>
+                <div>
+                    Title : <input type="text" value={filename} onChange={(e) => { setFilename(e.target.value) }} />
+                </div>
                 <button onClick={handleSave}>SAVE</button>
             </div>
             <Component>
