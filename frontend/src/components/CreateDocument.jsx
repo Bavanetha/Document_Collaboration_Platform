@@ -3,6 +3,7 @@ import "../App.css"
 
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import jsPDF from 'jspdf';
 
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
@@ -15,50 +16,52 @@ const Component = styled.div`
 `
 
 const toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],        
-    ['blockquote', 'code-block'],              
-    [{ list: 'ordered'}, { list: 'bullet' }],
-    [{ script: 'sub'}, { script: 'super' }],      
-    [{ indent: '-1'}, { indent: '+1' }],          
-    [{ direction: 'rtl' }],                        
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ script: 'sub' }, { script: 'super' }],
+    [{ indent: '-1' }, { indent: '+1' }],
+    [{ direction: 'rtl' }],
 
-    [{ size: ['small', false, 'large', 'huge'] }], 
+    [{ size: ['small', false, 'large', 'huge'] }],
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
-  
-    [{ color: [] }, { background: [] }],         
+
+    [{ color: [] }, { background: [] }],
     [{ font: [] }],
     [{ align: [] }],
 
     ["link", "image", "video"],
-  
-    ["clean"]                                        
+
+    ["clean"]
 ];
 
 const CreateDocument = () => {
     const [socket, setSocket] = useState();
     const [quill, setQuill] = useState();
+    const [filename, setFilename] = useState("");
     const { id } = useParams();
+    const email = localStorage.getItem("email");
 
     useEffect(() => {
-      console.log("Initializing Quill...");
-  
-      const container = document.getElementById('container');
-  
-      if (container?.children.length > 0) {
-          return;
-      }
-  
-      console.log("Creating new Quill instance.");
-      const quillServer = new Quill(container, { 
-          theme: 'snow', 
-          modules: { toolbar: toolbarOptions }
-      });
-  
-      quillServer.disable();
-      quillServer.setText('Loading the document...');
-      setQuill(quillServer);
-  }, []);
-  
+        console.log("Initializing Quill...");
+
+        const container = document.getElementById('container');
+
+        if (container?.children.length > 0) {
+            return;
+        }
+
+        console.log("Creating new Quill instance.");
+        const quillServer = new Quill(container, {
+            theme: 'snow',
+            modules: { toolbar: toolbarOptions }
+        });
+
+        quillServer.disable();
+        quillServer.setText('Loading the document...');
+        setQuill(quillServer);
+    }, []);
+
 
     useEffect(() => {
         const socketServer = io('https://document-collaboration-platform.onrender.com');
@@ -84,7 +87,7 @@ const CreateDocument = () => {
             quill && quill.off('text-change', handleChange);
         }
     }, [quill, socket])
-    
+
 
     useEffect(() => {
         if (socket === null || quill === null) return;
@@ -101,37 +104,36 @@ const CreateDocument = () => {
     }, [quill, socket]);
 
     useEffect(() => {
-        if (quill === null || socket === null) return;
 
-        socket && socket.once('load-document', document => {
+        console.log(email)
+        if (quill === null || socket === null || !email) return;
+
+        socket && socket.once('load-document', (document) => {
             quill.setContents(document);
             quill.enable();
         })
 
-        socket && socket.emit('get-document', id);
-    },  [quill, socket, id]);
+        socket && socket.emit('get-document', id, email, filename);
+    }, [quill, socket, id, email, filename]);
 
-    useEffect(() => {
-        if (socket === null || quill === null) return;
-
-        const interval = setInterval(() => {
-            socket.emit('save-document', quill.getContents())
-        }, 2000);
-
-        return () => {
-            clearInterval(interval);
+    const handleSave = () => {
+        if (!quill || !socket || !filename.trim()) {
+            return;
         }
-    }, [socket, quill]);
-    
+        const documentData = quill.getContents();
+        socket.emit('save-document', documentData, filename.trim());
+    };
 
-    
     return (
         <>
-        <Component>
-            <Box className='container' id='container'></Box>
-        </Component>
-
-         </>
+            <div>
+                <input type="text" value={filename} onChange={(e) => { setFilename(e.target.value) }} />
+                <button onClick={handleSave}>SAVE</button>
+            </div>
+            <Component>
+                <Box className='container' id='container'></Box>
+            </Component>
+        </>
     )
 }
 

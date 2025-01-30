@@ -1,9 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../App.css";
+import axios from 'axios'
 
 const DocumentsPage = () => {
     const navigate = useNavigate();
+    const [documents, setDocuments] = useState([]);
+    const email = localStorage.getItem("email");
+    console.log(email)
+
+    useEffect(() => {
+        const fetchDocuments = async () => {
+            try {
+                const response = await axios.get(`https://document-collaboration-platform.onrender.com/getdocsbyemail?email=${email}`);
+                console.log(response.data)
+                setDocuments(response.data);
+            } catch (error) {
+                console.error("Error fetching documents:", error);
+            }
+        };
+
+        if (email) {
+            fetchDocuments();
+        }
+    }, [email]);
+
+    console.log(documents)
+
+    const handleOpenDocument = (id) => {
+        navigate(`/docs/${id}`);
+    };
+
 
     const handleBack = () => {
         navigate("/");
@@ -11,6 +38,23 @@ const DocumentsPage = () => {
 
     const handleCreateDocument = () => {
         navigate("/create-document");
+    };
+
+    const handleDelete = async (id) => {
+        if (!id) return;
+
+        try {
+            const delResponse = await fetch(`https://document-collaboration-platform.onrender.com/documents/${id}`, {
+                method: 'DELETE',
+            });
+            if (delResponse.ok) {
+                const response = await axios.get(`https://document-collaboration-platform.onrender.com/getdocsbyemail?email=${email}`);
+                console.log(response.data)
+                setDocuments(response.data);
+            }
+        } catch (error) {
+            console.error('Error deleting document:', error);
+        }
     };
 
 
@@ -24,7 +68,17 @@ const DocumentsPage = () => {
                     <button onClick={handleCreateDocument}>+</button>
                 </div>
                 <div className="savedDocuments">
-                    
+                    {documents.length > 0 ? (
+                        documents.map(doc => (
+                            <div>
+                                <div key={doc._id} className="documentItem" onClick={() => handleOpenDocument(doc._id)}>
+                                    {doc.filename} </div>
+                                <button onClick={() => handleDelete(doc._id)}>DELETE</button>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No saved documents found.</p>
+                    )}
                 </div>
             </div>
         </div>
