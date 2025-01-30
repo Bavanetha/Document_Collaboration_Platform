@@ -1,6 +1,8 @@
 const mdb = require('mongoose');
 const DocumentSchema = mdb.Schema({
     _id: String,
+    email:String,
+    filename:String,
      data: Object,
 })
 
